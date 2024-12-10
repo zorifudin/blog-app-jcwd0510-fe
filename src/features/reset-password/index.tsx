@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import useLogin from "@/hooks/api/auth/useLogin";
 import { ResetPasswordSchema } from "./schema";
 import useResetPassword from "@/hooks/api/auth/useResetPassword";
+
 interface ResetPasswordPageProps {
   token: string;
 }

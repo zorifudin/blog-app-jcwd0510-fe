@@ -1,12 +1,11 @@
 "use client";
 
 import { axiosInstance } from "@/lib/axios";
+import { useAppDispatch } from "@/redux/hooks";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { toast } from "react-toastify";
-import { useAppDispatch } from "@/redux/hooks";
-import { loginAction } from "@/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 interface ResetPasswordPayload {
   password: string;
@@ -14,7 +13,6 @@ interface ResetPasswordPayload {
 
 const useResetPassword = (token: string) => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
 
   return useMutation({
     mutationFn: async (payload: ResetPasswordPayload) => {
@@ -23,7 +21,7 @@ const useResetPassword = (token: string) => {
         payload,
         {
           headers: {
-            Authorization: `bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
