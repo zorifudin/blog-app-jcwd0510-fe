@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export interface Blog {
   id: number;
   title: string;
@@ -8,4 +10,6 @@ export interface Blog {
   content: string;
   createdAt: Date;
   updatedAt: Date;
+
+  user: Pick<User, "name">;
 }
