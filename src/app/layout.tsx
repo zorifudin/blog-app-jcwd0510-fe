@@ -1,16 +1,14 @@
+import Navbar from "@/components/Navbar";
+import NextAuthProvider from "@/providers/NextAuthProvider";
+import NuqsProvider from "@/providers/NuqsProvider";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import StoreProvider from "@/providers/StoreProvider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
-import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import StoreProvider from "@/providers/StoreProvider";
-import AuthProvider from "@/providers/AuthProvider";
-import { ThemeProvider } from "@/providers/ThemeProvider";
-import TokenProvider from "@/providers/TokenProvider";
-import NextAuthProvider from "@/providers/NextAuthProvider";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
+import "./globals.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -45,7 +43,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <NextAuthProvider>
-            <NuqsAdapter>
+            <NuqsProvider>
               <StoreProvider>
                 {/* <AuthProvider> ini digunakan jika tidak menggunakan nextauth.js */}
                 {/* <TokenProvider> */}
@@ -57,7 +55,7 @@ export default function RootLayout({
                 {/* </TokenProvider> */}
                 {/* </AuthProvider> */}
               </StoreProvider>
-            </NuqsAdapter>
+            </NuqsProvider>
           </NextAuthProvider>
         </ThemeProvider>
       </body>
