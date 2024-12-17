@@ -8,25 +8,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { logoutAction } from "@/redux/slices/userSlice";
 import { Menu } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ToogleDarkMode } from "./ToogleDarkMode";
 
 const Navbar = () => {
-  const dispatch = useAppDispatch();
   const router = useRouter();
-  const user = useAppSelector((state) => state.user);
+  const { data } = useSession();
+  const user = data?.user;
 
-  const logout = () => {
-    localStorage.removeItem("blog-storage");
-    dispatch(logoutAction());
-  };
+  const logout = () => signOut();
 
   return (
-    <nav>
+    <nav className="sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           <Link href="/" className="text-xl font-bold">
@@ -36,8 +32,8 @@ const Navbar = () => {
           <div className="hidden cursor-pointer items-center gap-8 font-medium md:flex">
             <Link href="/">Home</Link>
             <Link href="/">Profile</Link>
-            {!user.id && <Link href="/login">Sign in</Link>}
-            {!!user.id && (
+            {!user?.id && <Link href="/login">Sign in</Link>}
+            {!!user?.id && (
               <>
                 <p onClick={() => router.push("/write")}>Write</p>
                 <p onClick={logout}>Logout</p>
@@ -62,12 +58,12 @@ const Navbar = () => {
                   <Link href="/">Profile</Link>
                 </DropdownMenuItem>
 
-                {!user.id && (
+                {!user?.id && (
                   <DropdownMenuItem>
                     <Link href="/login">Sign in</Link>
                   </DropdownMenuItem>
                 )}
-                {!!user.id && (
+                {!!user?.id && (
                   <>
                     <DropdownMenuItem>
                       <>
