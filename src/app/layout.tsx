@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import StoreProvider from "@/providers/StoreProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import TokenProvider from "@/providers/TokenProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,11 +39,13 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark">
           <StoreProvider>
             <AuthProvider>
-              <ReactQueryProvider>
-                <Navbar />
-                {children}
-              </ReactQueryProvider>
-              <ToastContainer />
+              <TokenProvider>
+                <ReactQueryProvider>
+                  <Navbar />
+                  {children}
+                </ReactQueryProvider>
+                <ToastContainer />
+              </TokenProvider>
             </AuthProvider>
           </StoreProvider>
         </ThemeProvider>
