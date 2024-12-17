@@ -38,6 +38,10 @@ const BlogCard: FC<BlogCardProps> = ({ blog }) => {
             >
               {format(blog.createdAt, "dd MMM yyyy")}
             </Badge>
+
+            <p className="flex text-right text-sm font-light">
+              {blog.user.name}
+            </p>
           </div>
 
           <h2 className="my-2 line-clamp-2 text-lg font-bold">{blog.title}</h2>

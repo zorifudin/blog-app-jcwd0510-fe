@@ -11,18 +11,18 @@ import SkeletonBlog from "./components/SkeletonBlog";
 import useDeleteBlog from "@/hooks/api/blog/useDeleteBlog";
 import { useAppSelector } from "@/redux/hooks";
 import { stat } from "fs";
+import { useSession } from "next-auth/react";
 
 interface BlogDetailPageProps {
   blogId: number;
 }
 
 const BlogDetailPage: FC<BlogDetailPageProps> = ({ blogId }) => {
+  const session = useSession();
   const { data, isPending: isPendingGet } = useGetBlog(blogId);
 
   const { mutateAsync: deleteBlog, isPending: isPendingDelete } =
     useDeleteBlog();
-
-  const { id } = useAppSelector((state) => state.user);
 
   const onClickDeleteBlog = async () => {
     await deleteBlog(blogId);
@@ -39,7 +39,12 @@ const BlogDetailPage: FC<BlogDetailPageProps> = ({ blogId }) => {
   return (
     <main className="container mx-auto mt-4 max-w-6xl px-4">
       <section className="mb-4 space-y-2">
-        <Badge>{data.category}</Badge>
+        <Badge
+          variant="outline"
+          className="rounded-sm bg-green-100 text-green-600"
+        >
+          {data.category}
+        </Badge>
 
         <h1 className="text-3xl font-semibold"> {data.title}</h1>
 
@@ -48,7 +53,7 @@ const BlogDetailPage: FC<BlogDetailPageProps> = ({ blogId }) => {
             {format(new Date(), "dd MMM yyyy")} - {data.user.name}
           </p>
 
-          {id === data.userId && (
+          {Number(session.data?.user.id) === data.userId && (
             <ModalDelete
               isPending={isPendingDelete}
               onClick={onClickDeleteBlog}
