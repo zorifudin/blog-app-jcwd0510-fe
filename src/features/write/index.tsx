@@ -37,7 +37,7 @@ const WritePage = () => {
       // Logika untuk memeriksa ukuran file
       const maxSizeInBytes = 4.5 * 1024 * 1024; // 4.5 MB
       if (file.size > maxSizeInBytes) {
-        toast.error("Ukuran gambar melebihi 4.5MB!"); // Tampilkan toast error
+        toast.error("Image size exceeds 4.5MB!"); // Tampilkan toast error
         return;
       }
 
