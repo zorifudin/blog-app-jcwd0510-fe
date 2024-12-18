@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import axios, { AxiosError } from "axios";
-import { toast } from "react-toastify";
-import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "@/lib/axios";
-import { useRouter } from "next/router";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 interface RegisterPayload {
   name: string;
