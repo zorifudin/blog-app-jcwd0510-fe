@@ -39,11 +39,13 @@ const BlogList = () => {
         </div>
       )}
 
-      {!data?.data.length ? (
+      {!data?.data.length && !isPending && (
         <div className="flex h-[30vh] items-center justify-center">
           <h1 className="text-center">No Data</h1>
         </div>
-      ) : (
+      )}
+
+      {!!data && !!data.data.length && (
         <>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {data.data.map((blog, index) => {
@@ -51,10 +53,10 @@ const BlogList = () => {
             })}
           </div>
           <PaginationSection
-            onChangePage={onChangePage}
             page={page}
             take={data.meta.take}
             total={data.meta.total}
+            onChangePage={onChangePage}
           />
         </>
       )}
