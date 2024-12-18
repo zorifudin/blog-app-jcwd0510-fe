@@ -83,7 +83,7 @@ const RegisterPage = () => {
               {isPending ? "Loading..." : "Register"}
             </Button>
 
-            <Link href="/register" className="mt-4 flex justify-center text-xs">
+            <Link href="/login" className="mt-4 flex justify-center text-xs">
               Already have an account? Sign In
             </Link>
           </form>
