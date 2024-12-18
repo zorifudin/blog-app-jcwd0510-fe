@@ -9,6 +9,7 @@ import useCreateBlog from "@/hooks/api/blog/useCreateBlog";
 import { useFormik } from "formik";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 const WritePage = () => {
   const { mutateAsync: createBlog, isPending } = useCreateBlog();
@@ -31,8 +32,17 @@ const WritePage = () => {
   const onChangeThumbnail = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length) {
-      formik.setFieldValue("thumbnail", files[0]);
-      setSelectedImage(URL.createObjectURL(files[0]));
+      const file = files[0];
+
+      // Logika untuk memeriksa ukuran file
+      const maxSizeInBytes = 4.5 * 1024 * 1024; // 4.5 MB
+      if (file.size > maxSizeInBytes) {
+        toast.error("Ukuran gambar melebihi 4.5MB!"); // Tampilkan toast error
+        return;
+      }
+
+      formik.setFieldValue("thumbnail", file);
+      setSelectedImage(URL.createObjectURL(file));
     }
   };
 
